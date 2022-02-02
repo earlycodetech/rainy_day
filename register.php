@@ -1,5 +1,6 @@
 <?php 
     include "assets/includes/headers.php";
+    include "assets/includes/sessions.php";
 ?>
 <style>
     label{
@@ -36,7 +37,9 @@
     
 </style>
 <body>
-    <form class="w-50 w-sm-75 bg-black bg-gradient p-3 mx-auto mt-5 card shadow-lg " action="assets/config/registeration_control.php" method="POST" >
+
+    <form class="w-50 w-sm-75 bg-black bg-gradient p-3 mx-auto mt-5 card shadow-lg " action="assets/config/registeration_control.php" method="POST" >]
+    <?php echo errorMessage(); echo successMessage(); ?>
         <h1 class="text-italic text-light text-center mb-3 rigister">Register New Account</h1>
         <div class="row">
             <div class="col-lg-6 col-sm-12 col-md-12">
