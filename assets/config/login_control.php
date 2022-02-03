@@ -3,7 +3,7 @@
     include "../includes/sessions.php";
 
     if (!isset($_POST['login'])) {
-        header("Location: ../../login.php");
+        header("Location: ../../login");
     }
     else{
         $email = $_POST['email'];
@@ -29,16 +29,17 @@
                 if (password_verify($password,$returnedPassword)) {
                     $_SESSION['id'] = $row['id'];
                     $_SESSION['dept'] = $row['dept'];
+                    $_SESSION['role'] = $row['user_role'];
 
                     $_SESSION['successmessage'] =  "Incorrect password";
-                    header("Location: ../../user/dashboard.php");
+                    header("Location: ../../user/dashboard");
                 }else{
                     $_SESSION['errormessage'] =  "Incorrect password";
-                    header("Location: ../../login.php");
+                    header("Location: ../../login");
                 }
             }else{
                 $_SESSION['errormessage'] =  "Invalid Email Address";
-                header("Location: ../../login.php");
+                header("Location: ../../login");
             }
             // print_r($row);
        
