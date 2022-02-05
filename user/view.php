@@ -16,29 +16,36 @@
 <section>
   <div class="container pt-3">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card p-3 mb-3">
               <h4><i class="fas text-info fa-user"></i> USER NAME</h4>
               <h5 class="text-end mt-3"><?php echo $row['first_name']." ".$row['last_name']; ?></h5>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card p-3 mb-3">
               <h4><i class="fas text-info fa-calendar"></i> DEPARTMENT</h4>
               <h5 class="text-end mt-3"><?php echo $row['department']; ?></h5>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card p-3 mb-3">
               <h4><i class="fas text-info fa-envelope"></i> EMAIL</h4>
               <h5 class="text-end mt-3"><?php echo $row['email']; ?></h5>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="card p-3 mb-3">
+              <h4><i class="fas text-info fa-envelope"></i> Withdrwal</h4>
+              <h5 class="text-end mt-3">₦ <?php echo number_format($row['total_withdrawal'],2,'.',','); ?></h5>
+            </div>
+        </div>
       </div>
     </div>
 </section>
+
 <?php 
     if (!isset($_GET['qs'])) {
         header("Location: dashboard");

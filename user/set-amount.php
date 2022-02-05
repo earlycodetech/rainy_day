@@ -12,7 +12,6 @@
 
     include '../assets/includes/navbar.php';
 ?>
-
 <section>
   <div class="container pt-3">
       <div class="row">
@@ -46,73 +45,52 @@
     </div>
 </section>
 
-<!-- USER SECTION STARTS HERE -->
-<?php if ($_SESSION['role'] != 'admin') { echo errorMessage(); echo successMessage(); ?>
 <section>
-  
-<div class="container">
-    <div class="card shadow-lg p-3">
-        <div class="controlBtn">
-          <a href="settings" class="btn btn-primary btn-lg">Update Details</a>
+    <div class="container mt-5">
+        <?php echo errorMessage(); echo successMessage(); ?>
+        <div class="card shadow-lg p-3">
+            <form action="../assets/config/update_contol.php" method="post">
+                <?php 
+                     $sql = "SELECT * FROM total_amount  ORDER BY id DESC LIMIT 1";
+                     $query = mysqli_query($connectDB,$sql);
+                    
+                    while( $row  = mysqli_fetch_assoc($query)){
+                ?>
+                <h1 class="fw-light">₦ <?php  echo number_format($row['amount'],2,'.',','); ?></h1>
+                <?php } ?>
+                <input type="text" name="amount" placeholder="Enter amount to add" class="form-control mb-3">
+
+                <input type="submit" name="add" value="Add" class="btn btn-primary">
+            </form>
         </div>
-    </div>
-</div>
 
-  
-</section>
-
-
-<!-- ADMIN SECTION STARTS HERE -->
-  <?php }else {  
-      echo errorMessage(); echo successMessage();
-    ?>
-    
-      <section>
-        <form action="view" method="get" class="container py-2">
-            <div class="row">
-              <div class="col-11">
-                <input type="text" name="qs" placeholder="Enter User ID" class="form-control">
-              </div>
-              <div class="col-1">
-                <button class="btn btn-primary">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-        </form>
         <div class="table-responsive container">
         <table class="table text-light table-dark">
             <thead>
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Department</th>
-                <th scope="col"></th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Total Amount</th>
               </tr>
             </thead>
             <tbody>
             <?php  
-              $sql = "SELECT * FROM users WHERE user_role = 'user' ORDER BY id DESC LIMIT 10";
+              $sql = "SELECT * FROM gross  ORDER BY id DESC";
               $query = mysqli_query($connectDB,$sql);
              
              while( $row = mysqli_fetch_assoc($query)){
             ?>
               <tr>
-                <th scope="row"><?php echo $row['userid']; ?></th>
-                <td><?php echo $row['first_name']." ".$row['last_name']; ?></td>
-                <td><?php echo strtoupper($row['department']); ?></td>
-                <td>
-                  <a href="view?qs=<?php echo $row['userid'] ?>" class="btn btn-sm btn-primary">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                </td>
+                <td><?php echo $row['date_created']; ?></td>
+                <td>₦ <?php echo  number_format($row['amount_added'],2,'.',','); ?></td>
+                <td>₦ <?php echo  number_format($row['total_amount'],2,'.',','); ?></td>
               </tr>
 
               <?php } ?>
             </tbody>
           </table>
         </div>
-      </section>
-    <?php } ?>
+    </div>
+</section>
 </body>
 </html>

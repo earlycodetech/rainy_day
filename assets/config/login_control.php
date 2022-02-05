@@ -30,9 +30,21 @@
                     $_SESSION['id'] = $row['id'];
                     $_SESSION['dept'] = $row['dept'];
                     $_SESSION['role'] = $row['user_role'];
+                    $user = $row['first_name'];
 
-                    $_SESSION['successmessage'] =  "Incorrect password";
-                    header("Location: ../../user/dashboard");
+                    $Hour = date('G');
+
+                    if ( $Hour >= 5 && $Hour <= 11 ) {
+                        
+                        $_SESSION['successmessage'] = "Good Morning ".$user;
+                        header('Location:../../user/dashboard');
+                    } else if ( $Hour >= 12 && $Hour <= 16 ) {
+                        $_SESSION['successmessage'] = "Good Afternoon ".$user;
+                        header('Location:../../user/dashboard');
+                    } else if ( $Hour >= 17 || $Hour <= 4 ) {
+                        $_SESSION['successMessage'] = "Good Evening ".$user;
+                        header('Location:../../user/dashboard');
+                    }
                 }else{
                     $_SESSION['errormessage'] =  "Incorrect password";
                     header("Location: ../../login");

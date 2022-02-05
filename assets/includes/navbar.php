@@ -21,8 +21,16 @@
           <a class="nav-link active" aria-current="page" href="dashboard">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Profile</a>
+          <a class="nav-link active" aria-current="page" href="settings">Profile</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="withdrawal">Withrawal</a>
+        </li>
+        <?php if($_SESSION['role'] === 'admin'){ ?>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" target="_blank" href="set-amount">Gross Amount</a>
+        </li>
+        <?php } ?>
         <li class="nav-item">
           <a class="nav-link" href="../assets/config/logout.php">Logout</a>
         </li>
