@@ -30,6 +30,9 @@
           <li class="nav-item">
           <a class="nav-link active" aria-current="page" target="_blank" href="set-amount">Gross Amount</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" target="_blank" href="requests">Withdrawal Requests</a>
+        </li>
         <?php } ?>
         <li class="nav-item">
           <a class="nav-link" href="../assets/config/logout.php">Logout</a>

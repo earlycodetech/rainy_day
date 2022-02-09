@@ -3,7 +3,12 @@
     include "../includes/sessions.php";
     $id = $_SESSION['id'];
 
-   
+   $sql = "SELECT * FROM total_amount WHERE id = 1";
+   $query = mysqli_query($connectDB,$sql);
+   $row = mysqli_fetch_assoc($query);
+   $poolBalance = $row['amount'];
+
+
     if(isset($_POST['update'])){
         $fname= $_POST['fname'];
         $lname= $_POST['lname'];
@@ -104,6 +109,86 @@
                 $_SESSION['errormessage'] =  "Something went wrong";
                 header("Location: ../../user/set-amount");
            }
+    }
+    elseif (isset($_POST['withdraw'])) {
+       $amount = $_POST['amount'];
+
+       if ($poolBalance < $amount) {
+            $_SESSION['errormessage'] =  "Insufficient Balance";
+            header("Location: ../../user/withdrawal");
+       }else{
+           $sql = "SELECT * FROM users WHERE id = '$id'";
+           $query = mysqli_query($connectDB,$sql);
+           $row = mysqli_fetch_assoc($query);
+
+           $uid = $row['userid'];
+           $fullName = $row['first_name']." ".$row['last_name'];
+           $status = "pending...";
+           $date = date('Y-m-d h:i:s');
+
+           $sql = "INSERT INTO withdrawals(userid,full_name,amount,withdrawal_status,date_created) VALUES(?,?,?,?,?)";
+           // Initialize Database Connection
+           $stmt = mysqli_stmt_init($connectDB);
+           // Prepare SQL statement
+           mysqli_stmt_prepare($stmt,$sql);
+           // Bind parameters to the placeholder
+           mysqli_stmt_bind_param($stmt,"sssss",$uid,$fullName,$amount,$status,$date);
+           // Execute statement
+          if (mysqli_stmt_execute($stmt)) {
+           $_SESSION['successmessage'] =  "Withrawal request recieved successfully";
+           header("Location: ../../user/withdrawal");
+          }else{
+               $_SESSION['errormessage'] =  "Something went wrong";
+               header("Location: ../../user/withdrawal");
+          }
+       }
+    }
+    elseif (isset($_GET['confirm'])) {
+        $wid = $_GET['confirm'];
+
+        // Get withdrawal request
+        $sql = "SELECT * FROM withdrawals WHERE id = '$wid'";
+        $query = mysqli_query($connectDB,$sql);
+        $row = mysqli_fetch_assoc($query);
+        $uid = $row['userid'];
+        $amount = $row['amount'];
+        $newBalance = $poolBalance - $amount;
+
+        // Get total withdrawal by user
+        $sql = "SELECT * FROM users WHERE userid = '$uid'";
+        $query = mysqli_query($connectDB,$sql);
+        $row = mysqli_fetch_assoc($query);
+
+        $withTotal = $row['total_withdrawal'];
+        $newTotal = $withTotal + $amount;
+
+
+        // Update pool amount
+        $sql = "UPDATE total_amount SET amount = '$newBalance' WHERE id = '1'";
+        $query = mysqli_query($connectDB,$sql);
+        if ($query) {
+            // Update withdrawal status
+            $sql = "UPDATE withdrawals SET withdrawal_status = 'successful' WHERE id = '$wid'";
+            $query = mysqli_query($connectDB,$sql);
+            if ($query) {
+                // update users total withdrawal
+                $sql = "UPDATE users SET total_withdrawal = '$newTotal' WHERE userid = '$uid'";
+                $query = mysqli_query($connectDB,$sql);
+                if ($query) {
+                    $_SESSION['successmessage'] =  "Confirmed";
+                    header("Location: ../../user/requests");
+                }else{
+                    $_SESSION['errormessage'] =  "Something went wrong";
+                    header("Location: ../../user/requests");
+                }
+            }else{
+                $_SESSION['errormessage'] =  "Something went wrong";
+                header("Location: ../../user/requests");
+            }
+        }else{
+            $_SESSION['errormessage'] =  "Something went wrong";
+            header("Location: ../../user/requests");
+        }
     }
     
     else {
