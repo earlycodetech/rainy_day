@@ -49,6 +49,25 @@
     <div class="container mt-5">
         <?php echo errorMessage(); echo successMessage(); ?>
         <div class="card shadow-lg p-3">
+          <div class="ms-auto">
+            <div class="p-2">
+              <img src="../assets/img/prof_pic/<?php
+                  $profPic = $row['profile_picture'];
+
+                  if(empty($profPic)){
+                      echo 'user.png';
+                  }else{
+                    echo "$profPic?".mt_rand();
+                  }
+              ?>" class="ms-auto d-block" height="100px"><?php echo "$profPic?".mt_rand(); ?>
+            </div>
+            <form action="../assets/config/update_contol.php" method="post" enctype="multipart/form-data">
+                <input type="file" name="img" class="form-control ">
+               <div class="text-end mt-3">
+                  <button type="submit" name="upload" class="btn btn-primary">Upload</button>
+               </div>
+            </form>
+          </div>
             <form action="../assets/config/update_contol.php" method="post">
                 <label>First Name:</label>
                 <input type="text" name="fname" placeholder="<?php echo $row['first_name']; ?>" class="form-control mb-3">

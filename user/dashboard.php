@@ -105,6 +105,9 @@
                   <a href="view?qs=<?php echo $row['userid'] ?>" class="btn btn-sm btn-primary">
                     <i class="fas fa-eye"></i>
                   </a>
+                  <a href="../assets/config/update_contol?delete=<?php echo $row['id'] ?>" class="btn btn-sm btn-primary">
+                    <i class="fas fa-trash"></i>
+                  </a>
                 </td>
               </tr>
 

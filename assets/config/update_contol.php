@@ -110,6 +110,7 @@
                 header("Location: ../../user/set-amount");
            }
     }
+    // To create a withdrawal reques
     elseif (isset($_POST['withdraw'])) {
        $amount = $_POST['amount'];
 
@@ -143,6 +144,7 @@
           }
        }
     }
+    // To confirm a withdrawal request
     elseif (isset($_GET['confirm'])) {
         $wid = $_GET['confirm'];
 
@@ -190,7 +192,88 @@
             header("Location: ../../user/requests");
         }
     }
-    
+    elseif(isset($_GET['delete'])){
+        $uid = $_GET['delete'];
+        $sql = "DELETE FROM users WHERE id = '$uid'";
+        $query = mysqli_query($connectDB,$sql);
+        if ($query) {
+            $_SESSION['successmessage'] =  "User deleted succeffully";
+            header("Location: ../../user/dashboard");
+        }else{
+            $_SESSION['errormessage'] =  "Something went wrong";
+            header("Location: ../../user/dashboard");
+        }
+    }
+    elseif(isset($_POST['upload'])){
+        // Get file
+        $file = $_FILES['img']; 
+        
+        // Get all the values from the file associative array
+        $fileName = $file['name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+        $fileTempLoc = $file['tmp_name'];
+
+        $fileExt = explode('.',$fileName);
+        $fileActualExt = strtolower(end($fileExt));
+
+        // Files that would be allowed
+        $allowed = array('jpg','png','jpeg');
+
+        // Check if the file extension is allowed
+        if (in_array($fileActualExt,$allowed)) {
+            // check the file size
+            if ($fileSize < 1000000) {
+            //  check for errors
+                if ($fileError === 0) {
+                    // Create a new name for our file
+                    $fileNewName = "profile".$id.".".$fileActualExt;
+                    $location = "../img/prof_pic/";
+                    $move = move_uploaded_file($fileTempLoc,$location.$fileNewName);
+                    if ($move) {
+                        if (file_exists($fileNewName)) {
+                            unlink($fileNewName);
+                            $sql = "UPDATE users SET profile_picture ='$fileNewName' WHERE id ='$id'";
+                            $query = mysqli_query($connectDB,$sql);
+                            if ($query) {
+                                $_SESSION['successmessage'] =  "Upload succefful";
+                                header("Location: ../../user/settings");
+                            }else{
+                                $_SESSION['errormessage'] =  "Something went wrong";
+                                header("Location: ../../user/settings");
+                            }
+                        }
+                        else{
+                            $sql = "UPDATE users SET profile_picture ='$fileNewName' WHERE id ='$id'";
+                            $query = mysqli_query($connectDB,$sql);
+                            if ($query) {
+                                $_SESSION['successmessage'] =  "Upload succefful";
+                                header("Location: ../../user/settings");
+                            }else{
+                                $_SESSION['errormessage'] =  "Something went wrong";
+                                header("Location: ../../user/settings");
+                            }
+                        }
+                        
+                    }else{
+                        $_SESSION['errormessage'] =  "Something went wrong";
+                        header("Location: ../../user/settings"); 
+                    }
+                }else{
+                    $_SESSION['errormessage'] =  "There is an error with your file";
+                    header("Location: ../../user/settings"); 
+                }
+            }else{
+                $_SESSION['errormessage'] =  "This file is too large";
+                header("Location: ../../user/settings"); 
+            }
+        }else{
+            $_SESSION['errormessage'] =  "Please upload a file that is either jpg,png or jpeg";
+            header("Location: ../../user/settings");
+        }
+
+     
+    }
     else {
         header("Location: ../../user/dashboard");
     }
