@@ -54,6 +54,7 @@
     <div class="card shadow-lg p-3">
         <div class="controlBtn">
           <a href="settings" class="btn btn-primary btn-lg">Update Details</a>
+          <a href="contact" class="btn btn-primary btn-lg">Contact Us</a>
         </div>
     </div>
 </div>

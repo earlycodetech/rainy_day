@@ -84,6 +84,8 @@
 
                 <input type="submit" name="update" value="Update" class="btn btn-primary">
             </form>
+
+            
         </div>
     </div>
 </section>
