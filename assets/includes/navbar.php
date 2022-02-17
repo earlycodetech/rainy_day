@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/fontawsome/css/all.css">
 </head>
-<body style="background-image: url(../assets/img/bg-1.jpg); background-size: cover; background-position: top; height: 100vh; background-repeat: no-repeat;">
+<body style="background-image: url(../assets/img/bg-1.jpg); background-size: cover; background-position: top; height: 100%; background-repeat: no-repeat;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Rainy Day</a>

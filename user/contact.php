@@ -50,8 +50,10 @@
     <div class="container mt-5">
         <?php echo errorMessage(); echo successMessage(); ?>
         
-
         <div class="card p-2 mx-auto" style="max-width: 700px;">
+        <h1 class="text-center">
+            SEND Email
+          </h1>
         <form action="../assets/config/mail_control.php" method="post">
             <input type="text" name="subject" placeholder="Subject*" class="form-control my-2">
             <textarea name="message" class="form-control my-2" style="height: 300px;"></textarea>
@@ -60,7 +62,14 @@
                 <button type="submit" name="send" class="btn btn-primary btn-lg">Send</button>
             </div>
         </form>
-
+<hr>
+        <form action="../assets/config/text_control.php" method="post">
+          <h1 class="text-center">
+            SEND TEXT MESSAGE
+          </h1>
+          <textarea name="message" class="form-control my-2" style="height: 300px;"></textarea>
+          <button type="submit" name="send" class="btn btn-primary btn-lg">Send Text</button>
+        </form>
         </div>
        
     </div>
