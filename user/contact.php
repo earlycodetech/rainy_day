@@ -12,6 +12,32 @@
      $uid = $row['userid'];
 
     include '../assets/includes/navbar.php';
+      $userIP = $_SERVER['REMOTE_ADDR'];
+      // $userIP = "102.222.198.75";
+      // API end URL 
+      $apiURL = 'https://freegeoip.app/json/'.$userIP; 
+      
+      // Create a new cURL resource with URL 
+      $ch = curl_init($apiURL); 
+      
+      // Return response instead of outputting 
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+      
+      // Execute API request 
+      $apiResponse = curl_exec($ch); 
+      
+      // Close cURL resource 
+      curl_close($ch); 
+      
+      // Retrieve IP data from API response 
+      $ipData = json_decode($apiResponse, true); 
+      print_r($ipData);
+      if(!empty($ipData)){ 
+          $country_name = $ipData['country_name'].", ".$ipData['city']; 
+          $zip_code = $ipData['zip_code']; 
+      }else{ 
+          echo 'IP data is not found!'; 
+      } 
 ?>
 
 <section>
