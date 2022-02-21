@@ -1,0 +1,36 @@
+body {
+  background-color: #FFCC1D;
+}
+
+@media (max-width: 640px) {
+  body {
+    background-color: #116530;
+  }
+}
+
+.wrapper {
+  background-color: #0B4619;
+}
+
+.wrapper h1 {
+  color: #FFCC1D;
+  font-family: "Times New Roman";
+}
+
+@media (max-width: 640px) {
+  .wrapper h1 {
+    color: #E8E8CC;
+    font-size: 100px;
+  }
+}
+
+.wrapper h1 span {
+  color: #E8E8CC;
+  font-family: Arial;
+}
+
+.wrapper p {
+  color: #FFCC1D;
+  font: Arial;
+}
+/*# sourceMappingURL=sass1.css.map */

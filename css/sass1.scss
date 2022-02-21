@@ -1,0 +1,56 @@
+$colors: (
+    first: #FFCC1D,
+    second: #0B4619,
+    third: #116530,
+    fourth: #E8E8CC
+);
+$families:(
+    fine: Arial,
+    rugged: 'Times New Roman'
+);
+// Function
+@function mycolors($smart){
+   @return map-get($colors,$smart);
+}
+
+@function myfonts($sure){
+    @return map-get($families,$sure);
+ }
+
+
+//  Mixins
+$mobile: 640px;
+@mixin mobile{
+    @media (max-width:#{$mobile}){
+        @content;
+    }
+}
+
+// Styles////////////////////////////////////////////////////////////////////////////////////////////////////////////
+body{
+    background-color: mycolors(first);
+    @include mobile(){
+        background-color: mycolors(third);
+    }
+}
+
+.wrapper{
+    background-color: mycolors(second);
+
+    h1{
+        color: mycolors(first);
+        font-family: myfonts(rugged);
+        @include mobile(){
+            color: mycolors(fourth);
+            font-size: 100px;
+        }
+        span{
+            color: mycolors(fourth);
+            font-family: myfonts(fine);
+        }
+    }
+    p{
+        color: mycolors(first);
+        font: myfonts(fine);
+    }
+}

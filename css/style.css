@@ -1,0 +1,145 @@
+/* Get rid of default styles */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the nav */
+#logo{
+    width: 50px;
+}
+.navbar{
+    display: flex;
+    background-color: #FFCE45;
+    justify-content: space-between;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+}
+
+/* Brand Styles */
+.brand{
+    font-size: 35px;
+    font-weight: bold;
+    color: #2E4C6D;
+}
+.brand span{
+    font-family: 'Lobster', cursive;
+}
+.brand img:hover{
+    transition: 1s;
+    transform: rotateY(360deg);
+}
+/* List styles */
+.list{
+    display: flex;
+    list-style-type: none;
+    padding-top: 20px;
+}
+.list a{
+    color: #7E370C;
+    padding: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.list a:hover{
+    color: #2E4C6D;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+
+/* //////////////////////////////// */
+/* Hero section styles  */
+
+.container{
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    animation: changer 6s ease-in-out  alternate infinite;
+    padding-top: 20px;
+}
+
+/* Animation */
+
+@keyframes changer {
+    to{
+        background-image: url(../img/bg-1.jpg);
+    }
+    from{
+        background-image: url(../img/bg-2.jpg);
+    }
+}
+
+
+.hero{
+    display: flex;
+}
+
+.left{
+    padding-top: 16%;
+    padding-left: 30px;
+    font-size: 37px;
+    text-align: center;
+    color: #FFCE45;
+    text-shadow: -3px 3px 3px #FFFFFF;
+}
+#call{
+    padding: 15px;
+    width: 200px;
+    background-color: #FFCE45;
+    border-radius: 20px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    transition: 1s;
+    border: none;
+}
+#call:hover{
+    background-color: #2E4C6D;
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+
+
+
+
+/* MEDIA QUERRIES/////////////////////////////////////////////////////////////////////////////// */
+/* Tablets */
+@media (max-width:736px) {
+    .navbar{
+        display: flex;
+    }
+    .list a{
+        font-size: 14px;
+        text-align: center;
+    }
+    .brand span{
+        font-size: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width:640px){
+    .brand span{
+        font-size: 25px;
+    }
+    /* Navbar */
+    .navbar{
+        display: block;
+    }
+    .list a{
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Hero Section */
+    .hero img{
+        display: none;
+    }
+    .left{
+        font-size: 30px;
+        padding-left: 8px;
+    }
+}
